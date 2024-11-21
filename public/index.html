@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chat With PDF</title>
+
+  <!-- tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- htmx -->
+  <script src="https://unpkg.com/htmx.org@2.0.3"
+    integrity="sha384-0895/pl2MU10Hqc6jd4RvrthNlDiE9U1tWmX7WRESftEDRosgxNsQG/Ze9YMRzHq"
+    crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/htmx-ext-ws@2.0.1/ws.js"></script>
+
+  <!-- md block -->
+  <script type="module" src="https://md-block.verou.me/md-block.js"></script>
+</head>
+
+<body class="min-h-dvh bg-[#171717]">
+  <main class="h-dvh max-w-screen-2xl grid grid-cols-1 lg:grid-cols-2 gap-5 p-0 lg:p-5 mx-auto">
+    <section id="preview" class="bg-[#212121] rounded-lg overflow-hidden place-items-center hidden lg:grid">
+      <div class="text-center text-white font-mono">
+        <h1 class="text-5xl mb-3 tracking-tight">Chat With PDF</h1>
+        <p class="text-xl mb-10">Upload a file to get started</p>
+        <p>
+          (A demo using
+          <a class="text-blue-400 underline" href="https://ai.google.dev/" target="_blank">Google Generative AI</a>,
+          <a class="text-blue-400 underline" href="https://deno.com/" target="_blank">Deno</a>
+          and
+          <a class="text-blue-400 underline" href="https://htmx.org/" target="_blank">HTMX</a>)
+        </p>
+      </div>
+    </section>
+
+    <section class="flex flex-col gap-3 bg-[#212121] rounded-lg overflow-hidden p-2">
+      <div class="flex-grow overflow-y-auto flex-col-reverse p-5">
+        <div class="htmx-indicator text-center text-white" id="loading">
+          Establishing connection...
+        </div>
+        <div id="chat" class="flex flex-col gap-3"></div>
+      </div>
+
+      <form hx-encoding="multipart/form-data" hx-post="/upload" class="flex justify-between items-stretch gap-3"
+        hx-swap="outerHTML">
+        <input type="file" name="file" accept="application/pdf" required
+          class="px-2 py-1 placeholder-gray-400 text-gray-200 bg-[#2C2C2C] border border-[#3E3E3E] rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none resize-none w-full" />
+        <button
+          class="bg-blue-600 text-white font-bold uppercase text-xs px-4 py-2 rounded-lg shadow-md hover:bg-blue-700 active:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-all ease-linear duration-150">
+          Upload
+        </button>
+      </form>
+    </section>
+  </main>
+</body>
+
+</html>
